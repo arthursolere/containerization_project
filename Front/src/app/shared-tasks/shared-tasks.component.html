@@ -1,0 +1,47 @@
+<header>
+<nav>
+    <a href="#">Dashboard</a>
+    <a routerLink="/sign-in">Log Out</a>
+  </nav>
+</header>
+
+
+<div class="container mt-4">
+    <h2>Share a Task</h2>
+
+    <form (ngSubmit)="shareTask()">
+        <div class="form-group mb-3">
+            <label for="destUser" class="form-label">Collaborator Email</label>
+            <input 
+                type="email" 
+                class="form-control" 
+                id="destUser" 
+                [(ngModel)]="dest_user" 
+                name="dest_user" 
+                required 
+                placeholder="Entrez l'email de l'utilisateur"
+            />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="taskTitle" class="form-label">Task Title</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="taskTitle" 
+                [(ngModel)]="task_title" 
+                name="task_title" 
+                required 
+                placeholder="Entrez le titre de la tâche"
+            />
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!dest_user || !task_title">
+            Share
+        </button>
+    </form>
+
+    <div *ngIf="!dest_user || !task_title" class="alert alert-warning mt-3">
+        Please fill all the fields
+    </div>
+</div>

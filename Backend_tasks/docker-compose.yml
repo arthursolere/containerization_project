@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  tasks_service:
+    build: .
+    container_name: tasks_service
+    ports:
+      - "3000:3000"
+    depends_on:
+      tasks_db:
+        condition: service_healthy
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 456
+      POSTGRES_DB: work_organizer_tasks
+      POSTGRES_HOST: tasks_db
+      POSTGRES_PORT: 5432
+    networks:
+      - app_network
+    volumes:
+      - tasks_data:/app
+
+  tasks_db:
+    image: postgres:15
+    container_name: tasks_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 456
+      POSTGRES_DB: work_organizer_tasks
+    volumes:
+      - db_tasks_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+
+networks:
+  app_network:
+
+volumes:
+  db_tasks_data:
+  tasks_data:

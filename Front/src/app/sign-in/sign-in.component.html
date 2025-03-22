@@ -1,0 +1,20 @@
+<div class="auth-container">
+    <h1>Connexion</h1>
+    <form>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" [(ngModel)]="email" name="email" required class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" [(ngModel)]="password" name="password" required class="form-control">
+        </div>
+
+        <button (click)="connectUser()">Connexion</button>
+    </form>
+
+    <button [routerLink]="['/sign-up']">
+        Pas encore inscrit ? Créez un compte
+    </button>
+</div>
